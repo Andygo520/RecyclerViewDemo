@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
 //        方法一：利用View.onClickListener及onLongClickListener，在Adapter中处理RecyclerView的点击事件
         adapter.setOnItemClickListener(new MyAdapter.OnRecyclerViewItemClickListener() {
             @Override
-            public void onItemClick(View view, String data) {
-                Toast.makeText(MainActivity.this,"单击"+data,Toast.LENGTH_SHORT).show();
+            public void onItemClick(View view, int position) {
+                Toast.makeText(MainActivity.this,"单击"+position,Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onItemLongClick(View view, String data) {
-                Toast.makeText(MainActivity.this,"长按了"+data,Toast.LENGTH_SHORT).show();
+            public void onItemLongClick(View view,  int position) {
+                Toast.makeText(MainActivity.this,"长按了"+position,Toast.LENGTH_SHORT).show();
 
             }
         });

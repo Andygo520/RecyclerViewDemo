@@ -25,8 +25,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
 
 
     public static interface OnRecyclerViewItemClickListener {
-        void onItemClick(View view , String data);
-        void onItemLongClick(View view , String data);
+        void onItemClick(View view , int position);
+        void onItemLongClick(View view , int positon);
 
     }
 
@@ -40,7 +40,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     public void onClick(View view) {
         if (mOnItemClickListener != null) {
             //注意这里使用getTag方法获取数据
-            mOnItemClickListener.onItemClick(view,(String)view.getTag());
+            mOnItemClickListener.onItemClick(view,(int)view.getTag());
         }
     }
 
@@ -48,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     @Override
     public boolean onLongClick(View view) {
         if (mOnItemClickListener!=null){
-            mOnItemClickListener.onItemLongClick(view, (String) view.getTag());
+            mOnItemClickListener.onItemLongClick(view, (int) view.getTag());
             return true;
         }else
         return false;
@@ -71,8 +71,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvTitle.setText(titleList.get(position));
         holder.tvContent.setText(contentList.get(position));
-        //将数据保存在itemView的Tag中，以便点击时进行获取
-        holder.itemView.setTag(titleList.get(position));
+        //将position保存在itemView的Tag中，以便点击时进行获取
+        holder.itemView.setTag(position);
         holder.tvContent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
