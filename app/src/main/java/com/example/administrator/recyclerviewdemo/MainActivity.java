@@ -2,8 +2,8 @@ package com.example.administrator.recyclerviewdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,29 +20,34 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        titleList=new ArrayList<>();
-        contentList=new ArrayList<>();
+        titleList = new ArrayList<>();
+        contentList = new ArrayList<>();
 
-        for(int i=0;i<20;i++){
-            titleList.add("title"+i);
-            contentList.add("content"+i);
+        for (int i = 0; i < 20; i++) {
+            titleList.add("title" + i);
+            contentList.add("content" + i);
         }
 
-        recyclerView= (RecyclerView) findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        MyAdapter adapter=new MyAdapter(titleList,contentList,MainActivity.this);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+//        设置为列表布局
+//        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+
+ //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+
+         MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
 //        方法一：利用View.onClickListener及onLongClickListener，在Adapter中处理RecyclerView的点击事件
         adapter.setOnItemClickListener(new MyAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this,"单击"+position,Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "单击" + position, Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onItemLongClick(View view,  int position) {
-                Toast.makeText(MainActivity.this,"长按了"+position,Toast.LENGTH_SHORT).show();
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(MainActivity.this, "长按了" + position, Toast.LENGTH_SHORT).show();
 
             }
         });
