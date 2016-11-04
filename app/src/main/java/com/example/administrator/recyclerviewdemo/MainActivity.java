@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
  //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
 
-         MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
+         final MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
 //        方法一：利用View.onClickListener及onLongClickListener，在Adapter中处理RecyclerView的点击事件
@@ -47,8 +47,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "长按了" + position, Toast.LENGTH_SHORT).show();
-
+//                Toast.makeText(MainActivity.this, "长按了" + position, Toast.LENGTH_SHORT).show();
+//          长按删除条目
+                 adapter.removeData(position);
             }
         });
 

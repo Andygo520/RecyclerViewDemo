@@ -64,10 +64,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         return false;
     }
 
-//    //移除数据
-//    public void removeData(int position) {
-//        titleList.remove(position);
-//        notifyItemRemoved(position);
+    //移除数据
+    public void removeData(int position) {
+        titleList.remove(position);
+        contentList.remove(position);
+        notifyItemRemoved(position);
+//     表示从当前移除的位置后面的item的position要相应的更新
+        notifyItemRangeChanged(position,titleList.size()-position);
+    }
+
+    //新增数据
+//    public void addData(int position){
+//        titleList.add(position,"Add One");
+//        notifyItemInserted(position);
+//        notifyItemRangeChanged(position,titleList.size()-position);
+//    }
+    //更改某个位置的数据
+//    public void changeData(int position){
+//        titleList.set(position,"Item has changed"+ count++);
+//        notifyItemChanged(position);
+//        notifyItemRangeChanged(position,titleList.size()-position);
 //    }
 
     public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
