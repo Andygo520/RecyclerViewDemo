@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
-import com.jcodecraeer.xrecyclerview.ProgressStyle;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
@@ -42,26 +41,30 @@ public class MainActivity extends AppCompatActivity {
 //        设置为列表布局
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
-        //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
+
+
+//        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
 //        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+
 
         final MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
-//        自定义加载更多样式
-        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+        //        自定义加载更多样式
+//        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.SquareSpin);
+//        recyclerView.setRefreshProgressStyle(ProgressStyle.SquareSpin);
 
 //        为XRecyclerView对象绑定加载监听器
         recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(MainActivity.this,"已刷新",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "已刷新", Toast.LENGTH_SHORT).show();
                 recyclerView.refreshComplete();
             }
 
             @Override
             public void onLoadMore() {
-                Toast.makeText(MainActivity.this,"已加载更多",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "已加载更多", Toast.LENGTH_SHORT).show();
                 recyclerView.loadMoreComplete();
             }
         });
