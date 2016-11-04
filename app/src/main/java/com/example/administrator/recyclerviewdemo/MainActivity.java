@@ -10,8 +10,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+//    private RecyclerView recyclerView;
     private List<String> titleList;
     private List<String> contentList;
 
@@ -19,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        使用ButterKnife注解框架，在setContentView之后调用bind
+//        在Fragment的onCreateView中的调用，ButterKnife.bind(this, mRootView);
+        ButterKnife.bind(this);
 
         titleList = new ArrayList<>();
         contentList = new ArrayList<>();
@@ -28,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
             contentList.add("content" + i);
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+//        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 //        设置为列表布局
 //        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
- //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+        //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
-         final MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
+        final MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
         recyclerView.setAdapter(adapter);
 
 //        方法一：利用View.onClickListener及onLongClickListener，在Adapter中处理RecyclerView的点击事件
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemLongClick(View view, int position) {
 //                Toast.makeText(MainActivity.this, "长按了" + position, Toast.LENGTH_SHORT).show();
 //          长按删除条目
-                 adapter.removeData(position);
+                adapter.removeData(position);
             }
         });
 
