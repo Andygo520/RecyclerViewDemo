@@ -104,10 +104,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implem
         holder.tvTitle.setText(titleList.get(position));
         holder.tvContent.setText(contentList.get(position));
 
-        //绑定数据的同时，修改每个ItemView的高度
-        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        lp.height = height.get(position);
-        holder.itemView.setLayoutParams(lp);
+        //绑定数据的同时，修改每个ItemView的高度,瀑布流的时候用到
+//        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+//        lp.height = height.get(position);
+//        holder.itemView.setLayoutParams(lp);
 
         //将position保存在itemView的Tag中，以便点击时进行获取
         holder.itemView.setTag(position);

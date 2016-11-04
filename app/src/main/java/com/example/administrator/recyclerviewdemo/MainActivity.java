@@ -2,10 +2,12 @@ package com.example.administrator.recyclerviewdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.Toast;
+
+import com.jcodecraeer.xrecyclerview.ProgressStyle;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +17,8 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-//    private RecyclerView recyclerView;
+    XRecyclerView recyclerView;
+    //    private RecyclerView recyclerView;
     private List<String> titleList;
     private List<String> contentList;
 
@@ -38,13 +40,32 @@ public class MainActivity extends AppCompatActivity {
 
 //        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 //        设置为列表布局
-//        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
 
         //        设置为瀑布流布局,构造器中，第一个参数表示列数或者行数3，第二个参数表示滑动方向
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+//        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
 
         final MyAdapter adapter = new MyAdapter(titleList, contentList, MainActivity.this);
         recyclerView.setAdapter(adapter);
+
+//        自定义加载更多样式
+        recyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
+
+//        为XRecyclerView对象绑定加载监听器
+        recyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+            @Override
+            public void onRefresh() {
+                Toast.makeText(MainActivity.this,"已刷新",Toast.LENGTH_SHORT).show();
+                recyclerView.refreshComplete();
+            }
+
+            @Override
+            public void onLoadMore() {
+                Toast.makeText(MainActivity.this,"已加载更多",Toast.LENGTH_SHORT).show();
+                recyclerView.loadMoreComplete();
+            }
+        });
+
 
 //        方法一：利用View.onClickListener及onLongClickListener，在Adapter中处理RecyclerView的点击事件
         adapter.setOnItemClickListener(new MyAdapter.OnRecyclerViewItemClickListener() {
